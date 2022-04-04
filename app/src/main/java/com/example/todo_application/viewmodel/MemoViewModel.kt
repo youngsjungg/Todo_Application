@@ -1,6 +1,7 @@
 package com.example.todo_application.viewmodel
 
 import android.app.Application
+import android.app.DownloadManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
@@ -32,5 +33,8 @@ class MemoViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updataUser(memo)
         }
+    }
+    fun searchDatabase(searchQuery: String) : LiveData<List<Memo>> {
+        return repository.searchDatabase(searchQuery).asLiveData()
     }
 }
