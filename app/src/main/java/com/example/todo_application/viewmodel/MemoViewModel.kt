@@ -23,15 +23,15 @@ class MemoViewModel(application: Application) : AndroidViewModel(application) {
         readAllData = repository.readAllData.asLiveData()
     }
 
-    fun addUser(memo: Memo) {
+    fun addMemo(memo: Memo) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addUser(memo)
+            repository.addMemo(memo)
         }
     }
 
-    fun updataUser(memo: Memo) {
+    fun updataMemo(memo: Memo) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updataUser(memo)
+            repository.updataMemo(memo)
         }
     }
     fun searchDatabase(searchQuery: String) : LiveData<List<Memo>> {

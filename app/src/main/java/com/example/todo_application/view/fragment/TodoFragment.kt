@@ -13,9 +13,11 @@ import com.example.todo_application.R
 import com.example.todo_application.adapter.TodoAdapter
 import com.example.todo_application.data.Memo
 import com.example.todo_application.databinding.FragmentTodoBinding
+import com.example.todo_application.view.dialog.CustomDialog
+import com.example.todo_application.view.dialog.CustomDialogInterface
 import com.example.todo_application.viewmodel.MemoViewModel
 
-class TodoFragment : Fragment() {
+class TodoFragment : Fragment() , CustomDialogInterface{
 
     private var binding : FragmentTodoBinding? = null
     private val memoViewModel : MemoViewModel by viewModels()
@@ -26,14 +28,13 @@ class TodoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //상단 메뉴 추가
         binding = FragmentTodoBinding.inflate(inflater, container,false)
 
+        //상단 메뉴 추가
         setHasOptionsMenu(true)
-        binding!!.btnAdd.setOnClickListener {
-            Toast.makeText(activity,"ㅌㅔ스트 ", Toast.LENGTH_SHORT)
-            onFabClicked()
-        }
+
+        adapter.setHasStableIds(true)
+
         //아이템을 가로로 하나씩 보여줌
         binding!!.todoRecycelr.layoutManager = LinearLayoutManager(activity ,LinearLayoutManager.VERTICAL,
                 false)
@@ -44,9 +45,21 @@ class TodoFragment : Fragment() {
         memoViewModel.readAllData.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
+
+        binding!!.btnAdd.setOnClickListener {
+            onFabClicked()
+        }
+
         return  binding!!.root
     }
 
+   private fun onFabClicked() {
+       val customDialog = CustomDialog(requireActivity() , this)
+       customDialog.show()
+//       val memo = Memo(false , "테스트")
+//       memoViewModel.addUser(memo)
+
+   }
     //서치바 추가
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
@@ -60,10 +73,11 @@ class TodoFragment : Fragment() {
         super.onDestroyView()
     }
 
-   fun onFabClicked() {
-       val memo = Memo(false , "테스트")
-       memoViewModel.addUser(memo)
 
-   }
+    override fun onOkButtonClicked(content: String) {
+        val memo = Memo(0,false, content)
+        memoViewModel.addMemo(memo)
+        Toast.makeText(context, "추가" , Toast.LENGTH_SHORT).show()
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.todo_application.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +14,14 @@ class TodoAdapter :
     private var memoList = emptyList<Memo>()
     class ViewHolder(val binding: TodoItemBinding) :RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = TodoItemBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
 
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TodoAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = memoList[position]
         val currentContent = currentItem.content
         val currentCheck = currentItem.check
@@ -33,7 +34,7 @@ class TodoAdapter :
     }
 
     //메모 리스트 갱신
-    fun setData(memo : List<Memo>) {
+      fun setData(memo : List<Memo>) {
         memoList = memo
         notifyDataSetChanged()
     }

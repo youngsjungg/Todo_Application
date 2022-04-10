@@ -7,14 +7,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MemoDao {
 
+    //동일아이디 무시
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUser(memo: Memo)
+    suspend fun addMemo(memo: Memo)
 
     @Update
-    suspend fun updataUser(memo: Memo)
+    suspend fun updataMemo(memo: Memo)
 
     @Delete
-    suspend fun deleteUser(memo: Memo)
+    suspend fun deleteMemo(memo: Memo)
 
     @Query("SELECT * FROM Memo ORDER BY Id ASC")
     fun readAllData() : Flow<List<Memo>>
