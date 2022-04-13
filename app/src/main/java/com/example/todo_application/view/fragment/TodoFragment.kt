@@ -16,6 +16,8 @@ import com.example.todo_application.databinding.FragmentTodoBinding
 import com.example.todo_application.view.dialog.CustomDialog
 import com.example.todo_application.view.dialog.CustomDialogInterface
 import com.example.todo_application.viewmodel.MemoViewModel
+import java.time.Year
+import java.util.*
 
 class TodoFragment : Fragment() , CustomDialogInterface{
 
@@ -75,7 +77,15 @@ class TodoFragment : Fragment() , CustomDialogInterface{
 
 
     override fun onOkButtonClicked(content: String) {
-        val memo = Memo(0,false, content)
+
+
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH) + 1
+        val day = cal.get(Calendar.DATE)
+
+        //현재날짜로 메모 추가
+        val memo = Memo(false, content,year , month , day)
         memoViewModel.addMemo(memo)
         Toast.makeText(context, "추가" , Toast.LENGTH_SHORT).show()
     }

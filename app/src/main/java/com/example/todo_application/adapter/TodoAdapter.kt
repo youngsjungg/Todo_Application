@@ -24,9 +24,23 @@ class TodoAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = memoList[position]
         val currentContent = currentItem.content
-        val currentCheck = currentItem.check
+//        val currentCheck = currentItem.check
+        val currentYear = currentItem.year
+        val currentMonth = currentItem.month
+        val currentDay = currentItem.day
+
+        val s_currentYear = currentYear.toString()
+        var s_currentMonth = currentMonth.toString()
+        var s_currentDay = currentDay.toString()
+
+        if (currentMonth < 10) s_currentMonth = "0$currentMonth"
+        if (currentDay < 10) s_currentDay = "0$currentDay"
 
         holder.binding.btnCheck.text = currentContent
+        holder.binding.tvDate.text = "$s_currentYear/$s_currentMonth/$s_currentDay"
+
+
+//        holder.binding.btnCheck.text = currentContent
     }
 
     override fun getItemCount(): Int {

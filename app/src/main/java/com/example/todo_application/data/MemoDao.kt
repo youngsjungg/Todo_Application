@@ -17,7 +17,7 @@ interface MemoDao {
     @Delete
     suspend fun deleteMemo(memo: Memo)
 
-    @Query("SELECT * FROM Memo ORDER BY Id ASC")
+    @Query("SELECT * FROM Memo ORDER BY year DESC, month DESC, day DESC, id DESC")
     fun readAllData() : Flow<List<Memo>>
 
     @Query("SELECT * FROM Memo WHERE content LIKE :searchQuery")
