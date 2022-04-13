@@ -34,6 +34,12 @@ class MemoViewModel(application: Application) : AndroidViewModel(application) {
             repository.updataMemo(memo)
         }
     }
+
+    fun deleteMemo(memo: Memo) {
+        viewModelScope.launch(Dispatchers.IO) {
+                repository.deleteMemo(memo)
+        }
+    }
     fun searchDatabase(searchQuery: String) : LiveData<List<Memo>> {
         return repository.searchDatabase(searchQuery).asLiveData()
     }

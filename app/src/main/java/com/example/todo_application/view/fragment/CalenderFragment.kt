@@ -22,7 +22,7 @@ class CalenderFragment : Fragment(), CustomDialogInterface {
     //viewmodel 연결
     private val memoViewModel : MemoViewModel by viewModels()
     //Adapter 선언
-    private val adapter : TodoAdapter by lazy { TodoAdapter() }
+    private val adapter : TodoAdapter by lazy { TodoAdapter(memoViewModel) }
 
     private var year = 0
     private var month = 0
@@ -37,6 +37,8 @@ class CalenderFragment : Fragment(), CustomDialogInterface {
 
         binding!!.recyclerCal.layoutManager = LinearLayoutManager(activity , LinearLayoutManager.VERTICAL, false)
         binding!!.recyclerCal.adapter = adapter
+
+        adapter.setHasStableIds(true)
 
         binding!!.calendar.setOnDateChangeListener { calendarView, year, month, day ->
            //날짜 선택시 그 날의 정보할당
@@ -53,6 +55,10 @@ class CalenderFragment : Fragment(), CustomDialogInterface {
                 }
             )
         }
+        binding!!.btnAdd.setOnClickListener {
+            onFabClicked()
+        }
+
 
 
 

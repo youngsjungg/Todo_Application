@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Todo_Application</string>
     <string name="selete_date">달력에서 날짜를 선택해주세요.</string>
+    <string name="date_format">%d%d%d</string>
 </resources>

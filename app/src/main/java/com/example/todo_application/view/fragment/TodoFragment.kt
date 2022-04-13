@@ -23,7 +23,7 @@ class TodoFragment : Fragment() , CustomDialogInterface{
 
     private var binding : FragmentTodoBinding? = null
     private val memoViewModel : MemoViewModel by viewModels()
-    private val adapter : TodoAdapter by lazy { TodoAdapter()  }
+    private val adapter : TodoAdapter by lazy { TodoAdapter(memoViewModel)  }
 
     override fun onCreateView(
         inflater: LayoutInflater,
