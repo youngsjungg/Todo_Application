@@ -85,7 +85,7 @@ class TodoFragment : Fragment() , CustomDialogInterface{
         val day = cal.get(Calendar.DATE)
 
         //현재날짜로 메모 추가
-        val memo = Memo(false, content,year , month , day)
+        val memo = Memo(0,false, content,year , month , day)
         memoViewModel.addMemo(memo)
         Toast.makeText(context, "추가" , Toast.LENGTH_SHORT).show()
     }

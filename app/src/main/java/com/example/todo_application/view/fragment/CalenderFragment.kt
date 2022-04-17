@@ -35,10 +35,10 @@ class CalenderFragment : Fragment(), CustomDialogInterface {
     ): View? {
         binding = FragmentCalenderBinding.inflate(inflater,container,false)
 
+        adapter.setHasStableIds(true)
         binding!!.recyclerCal.layoutManager = LinearLayoutManager(activity , LinearLayoutManager.VERTICAL, false)
         binding!!.recyclerCal.adapter = adapter
 
-        adapter.setHasStableIds(true)
 
         binding!!.calendar.setOnDateChangeListener { calendarView, year, month, day ->
            //날짜 선택시 그 날의 정보할당
@@ -78,7 +78,7 @@ class CalenderFragment : Fragment(), CustomDialogInterface {
 
     override fun onOkButtonClicked(content: String) {
         //선택된 날짜로 메모 추가
-        val memo = Memo(false, content, year, month , day)
+        val memo = Memo(0,false, content, year, month, day)
         memoViewModel.addMemo(memo)
         Toast.makeText(activity, "추가", Toast.LENGTH_SHORT).show()
 

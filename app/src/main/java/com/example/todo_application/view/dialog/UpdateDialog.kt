@@ -6,9 +6,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.example.todo_application.R
 import com.example.todo_application.databinding.DialogTodoBinding
+import com.example.todo_application.viewmodel.MemoViewModel
 
 class UpdateDialog(context: Context , updateDialogInterface: UpdateDialogInterface) : Dialog(context) {
 
@@ -27,10 +29,11 @@ class UpdateDialog(context: Context , updateDialogInterface: UpdateDialogInterfa
         var et_memo = binding.etTodo.text
 
         binding.btnConfirm.setOnClickListener {
+            Log.d("click btn", "here")
             val content = et_memo.toString()
 
             //입력 안했을 때
-            if (TextUtils.isEmpty(content)) {
+            if (TextUtils.isEmpty(content)){
                 Toast.makeText(context, "수정할 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }else {
                 //메모 수정

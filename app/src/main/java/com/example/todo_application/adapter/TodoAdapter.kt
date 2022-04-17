@@ -1,20 +1,29 @@
 package com.example.todo_application.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_application.data.Memo
 import com.example.todo_application.databinding.TodoItemBinding
+import com.example.todo_application.view.dialog.CustomDialog
+import com.example.todo_application.view.dialog.UpdateDialog
+import com.example.todo_application.view.dialog.UpdateDialogInterface
 import com.example.todo_application.viewmodel.MemoViewModel
 
 class TodoAdapter(private val memoViewModel: MemoViewModel) :
     RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
     private var memoList = emptyList<Memo>()
-    class ViewHolder(val binding: TodoItemBinding) :RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: TodoItemBinding) :RecyclerView.ViewHolder(binding.root),
+            UpdateDialogInterface
     {
+        lateinit var memo : Memo
+        lateinit var memoViewModel: MemoViewModel
+
         fun bind(currentMemo: Memo, memoViewModel: MemoViewModel){
             binding.memo  = currentMemo
+            this.memoViewModel = memoViewModel
             
             //체크리스트 초기화 - 중복 오류 방지 
             binding.btnCheck.setOnCheckedChangeListener(null)
@@ -34,6 +43,18 @@ class TodoAdapter(private val memoViewModel: MemoViewModel) :
             binding.btnDelete.setOnClickListener {
                 memoViewModel.deleteMemo(currentMemo)
             }
+
+            binding.btnAlter.setOnClickListener {
+                memo = currentMemo
+                 val CustomDialog = UpdateDialog(binding.btnAlter.context , this)
+                CustomDialog.show()
+            }
+        }
+
+        override fun onOkButtonClick(content: String) {
+            val updateMemo = Memo(memo.id,memo.check,content,memo.year,memo.month,memo.day)
+            memoViewModel.updataMemo(updateMemo)
+
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
