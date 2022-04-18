@@ -9,6 +9,8 @@ import java.time.Year
 
 class MemoRepository(private val memoDao : MemoDao) {
     val readAllData : Flow<List<Memo>> = memoDao.readAllData()
+    val readDoneData : Flow<List<Memo>> = memoDao.readDoneData()
+
 
     suspend fun addMemo(memo: Memo) {
         memoDao.addMemo(memo)
@@ -24,8 +26,8 @@ class MemoRepository(private val memoDao : MemoDao) {
         return memoDao.searchDatabase(searchQuery)
     }
 
-    fun readDateData(year: Int, month : Int , day : Int)  :Flow<List<Memo>>  {
+    fun readDateData(year: Int, month : Int , day : Int) :List<Memo>  {
         return memoDao.readDateData(year, month, day)
-
     }
+
 }

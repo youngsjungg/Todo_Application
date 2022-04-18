@@ -49,18 +49,21 @@ class CalenderFragment : Fragment(), CustomDialogInterface {
             binding!!.tvSelectDate.text = "${this.year}/${this.month}/${this.day}"
 
             //리스트를 관찬하여 변경되면 어댑터에 전달
-            memoViewModel.readDateData(this.year, this.month, this.day).observe(
-                viewLifecycleOwner, Observer {
-                    adapter.setData(it)
-                }
-            )
+            memoViewModel.readDateData(this.year, this.month, this.day)
+
         }
+        //메모 데이터 수정시 날짜 데이터 불러옴
+        memoViewModel.readAllData.observe(viewLifecycleOwner, {
+            memoViewModel.readDateData(year, month, day)
+        })
+        //현재 날짜 데이터 리스트를 관찰하여 변경시 어댑터에 전달
+        memoViewModel.currentData.observe(viewLifecycleOwner, Observer {
+            adapter.setData(it)
+        })
+
         binding!!.btnAdd.setOnClickListener {
             onFabClicked()
         }
-
-
-
 
 
         return binding!!.root
